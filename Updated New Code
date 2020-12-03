@@ -1,0 +1,74 @@
+
+#include <SPI.h>
+#include "Adafruit_GFX.h"
+#include "Adafruit_RA8875.h"
+#include <SHT1x.h>
+
+// Library only supports hardware SPI at this time
+// Connect SCLK to UNO Digital #13 (Hardware SPI clock)
+// Connect MISO to UNO Digital #12 (Hardware SPI MISO)
+// Connect MOSI to UNO Digital #11 (Hardware SPI MOSI)
+
+#define RA8875_INT 2
+#define RA8875_CS 10
+#define RA8875_RESET 9
+
+string sensePin = A7;
+
+
+int myData[1023];
+int flow;
+int flowLPM;
+float temp_c;
+float humidity;
+
+// Specify data and clock connections and instantiate SHT1x object
+
+
+#define DATAPIN  20
+#define CLOCKPIN 21
+SHT1x sht1x(DATAPIN, CLOCKPIN);
+//Adafruit_RA8875 tft = Adafruit_RA8875(RA8875_CS, RA8875_RESET);
+//uint16_t tx, ty;
+
+void setup() {
+ Serial.begin(38400);
+
+   Serial.println("RA8875 start");
+   Serial.print("Humidity");
+   Serial.print(" (%) ");
+   Serial.print(",   \t ");
+   Serial.print("Temperature");
+   Serial.print(" (*C) ");
+   Serial.print(",   \t ");
+   Serial.print("Flow Rate");
+   Serial.println(" (L/min) ");
+
+   /* Initialize the display using 'RA8875_480x80', 'RA8875_480x128', 'RA8875_480x272' or 'RA8875_800x480' */
+
+void loop() {
+
+ // Read values from the sensor
+
+ temp_c = sht1x.readTemperatureC();
+ humidity = sht1x.readHumidity();
+
+
+  if (humidity < 0){
+   humidity = 0.00;
+}
+
+ Serial.print(temp_c, DEC);
+ Serial.print(" / ");
+ Serial.print(humidity, DEC);
+   flow = analogRead(sensePin);
+ Serial.print(" / ");
+
+ //  FlowLPM = (((myArray[flow-79]-0.865)/0.825));
+
+
+Serial.print(FlowLPM, DEC );
+Serial.print(" / ");
+Serial.println(flow, DEC);
+
+ delay(500);
