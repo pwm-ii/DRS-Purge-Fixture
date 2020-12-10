@@ -13,9 +13,7 @@
 #define RA8875_CS 10
 #define RA8875_RESET 9
 
-string sensePin = A7;
-
-
+string sensePin = "A7";
 int myData[1023];
 int flow;
 int flowLPM;
@@ -23,7 +21,6 @@ float temp_c;
 float humidity;
 
 // Specify data and clock connections and instantiate SHT1x object
-
 
 #define DATAPIN  20
 #define CLOCKPIN 21
@@ -53,7 +50,6 @@ void loop() {
  temp_c = sht1x.readTemperatureC();
  humidity = sht1x.readHumidity();
 
-
   if (humidity < 0){
    humidity = 0.00;
 }
@@ -65,7 +61,6 @@ void loop() {
  Serial.print(" / ");
 
  //  FlowLPM = (((myArray[flow-79]-0.865)/0.825));
-
 
 Serial.print(FlowLPM, DEC );
 Serial.print(" / ");
